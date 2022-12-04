@@ -132,6 +132,7 @@ const SideMenu = (props) => {
   }));
   const classes = useStyles();
   const { account } = useEtherum();
+  console.log(account);
   const menu = [
     {
       name: "Home",
@@ -177,7 +178,7 @@ const SideMenu = (props) => {
     },
   ];
   const array =
-    account === "0x774B716ee5176f7f4eE429F62F688e0AC2e6d504" ? menu : menu2;
+    account !== "0x774B716ee5176f7f4eE429F62F688e0AC2e6d504" ? menu : menu2;
   return (
     <>
       <Grid

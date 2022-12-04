@@ -8,11 +8,12 @@ import { FormLabel, Grid } from "@mui/material";
 const useStyles = makeStyles((theme) => ({
   input: {
     ...theme.typography.input,
+    borderRadius: "2em",
+    padding: "1em 1.5em",
   },
   FormLabel: {
     "&.MuiFormLabel-root": {
       ...theme.typography.FormLabel,
-      color: "#fff",
     },
   },
 }));
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 const Input = (props) => {
   const { label, name, ...rest } = props;
   const classes = useStyles();
+
   return (
     <Grid container direction="column" gap={0.5}>
       <FormLabel component="legend" className={classes.FormLabel}>

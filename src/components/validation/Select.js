@@ -3,32 +3,26 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@mui/styles";
 import { Field, ErrorMessage } from "formik";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import {
-  FormControl,
-  Typography,
-  FormLabel,
-  Select,
-  MenuItem,
-  Grid,
-} from "@mui/material";
+import { FormControl, FormLabel, Select, MenuItem, Grid } from "@mui/material";
 
+import Typography from "@mui/material/Typography";
 import { TextError } from "components/utilities";
 
 const useStyles = makeStyles((theme) => ({
   FormLabel: {
     "&.MuiFormLabel-root": {
       ...theme.typography.FormLabel,
-      color: "#fff",
     },
   },
   select: {
     "&.MuiOutlinedInput-root": {
       fontWeight: "200 !important",
-      color: "#000 !important",
-      backgroundColor: "#fff",
+      borderRadius: "2em",
+      color: `${theme.palette.common.grey} !important`,
+      backgroundColor: "#FAFAFA",
       height: ({ height }) => `${height}`,
       fontSize: "14px !important",
-      borderRadius: "8px",
+
       border: "1px solid #E0E0E0 !important",
 
       "&:disabled": {
@@ -141,15 +135,16 @@ FromikSelect.propTypes = {
 };
 
 const Selects = (props) => {
-  const { name, label, options, ...rest } = props;
+  const { name, label, options } = props;
   const classes = useStyles();
   return (
     <Grid container direction="column" gap={1}>
       <FormLabel className={classes.FormLabel}>{label}</FormLabel>
-      <Field name={name} as={FromikSelect} label={label} {...rest}>
+      <Field name={name} as={FromikSelect} label={label}>
         {options.map((option) => (
           <MenuItem
             key={option.key}
+            sx={{ color: "#000" }}
             value={option.value}
             style={{ fontSize: "1.4rem", fontWeight: "400" }}
           >
@@ -184,7 +179,6 @@ export const CustomSelect = (props) => {
     disabled = false,
     defaultValue,
     variant = "small",
-    ...rest
   } = props;
 
   const height = variant === "small" ? "48px" : "60px";
@@ -206,17 +200,12 @@ export const CustomSelect = (props) => {
             onChange={onChange}
             className={classes.select}
             defaultValue={defaultValue}
-            {...rest}
           >
             <MenuItem value="">
               <Typography>{placeholder}</Typography>
             </MenuItem>
             {options.map((option) => (
-              <MenuItem
-                key={option.key}
-                value={option.value}
-                style={{ fontSize: "1.4rem", fontWeight: "400" }}
-              >
+              <MenuItem key={option.key} value={option.value}>
                 {option.key}
               </MenuItem>
             ))}

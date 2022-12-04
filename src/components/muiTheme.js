@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
-const dark = "#000000";
+const dark = "#4F4F4F";
 const grey = "#757886";
 const red = "#3e5ea9";
 const lightRed = "#f7f7f7";
@@ -57,7 +57,6 @@ export const muiTheme = createTheme({
       "sans-serif",
     ].join(", "),
     fontSize: 10,
-    color: "#fff",
     htmlFontSize: 10,
     h1: {
       fontSize: "3rem",
@@ -134,22 +133,32 @@ export const muiTheme = createTheme({
       cursor: "pointer",
     },
     FormLabel: {
-      fontSize: "1.6rem",
-      color: dark,
+      fontSize: "clamp(1.4rem,2vw,1.6rem)",
+      color: "#000",
+      fontWeight: 500,
+
+      lineHeight: "2rem",
     },
     input: {
       width: "100%",
-      height: "5rem",
-      border: "1px solid lightGrey",
-      borderRadius: ".5rem",
-      padding: "1rem",
-      fontSize: "1.6rem",
+      height: "40px",
+      padding: "clamp(0.6rem, 2vw, 1rem)",
+      fontSize: "clamp(1.4rem,2vw,1.5rem)",
       color: dark,
-      fontWeight: 600,
+      fontWeight: 400,
+      border: "1px solid #E0E0E0 !important",
+      borderRadius: "8px",
 
       "&::placeholder": {
-        color: lightGrey,
-        fontWeight: "500 !important",
+        fontWeight: "400 !important",
+        fontSize: "clamp(1.4rem,2vw,1rem)",
+        color: "#afafaf",
+        fontFamily: [
+          '"Euclid Circular"',
+          '"Circular Std Medium"',
+          "Roboto",
+          "sans-serif",
+        ].join(", "),
       },
     },
   },

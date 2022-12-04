@@ -4,10 +4,15 @@ import { Grid, Button } from "@mui/material";
 import useAlert from "components/hooks/useAlert";
 // import * as Yup from "yup";
 import { useEtherum } from "components/hooks/useEtherum";
+import { CustomButton } from "components/utilities";
 
 const Withdraw = () => {
   const { displayAlert } = useAlert();
-
+  const buttonType = {
+    background: "#3E5EA9",
+    hover: "#3E5EA9",
+    active: "#3E5EA9",
+  };
   const { contract, account } = useEtherum();
   const handleSubmit = async (values, onSubmitProps) => {
     try {
@@ -36,14 +41,14 @@ const Withdraw = () => {
           return (
             <Form style={{ marginTop: "1rem", width: "100%" }}>
               <Grid container direction="column">
-                <Grid item container sx={{ mt: 2 }}>
-                  <Button
-                    type="submit"
+                <Grid item container sx={{ mt: 2 }} justifyContent="center">
+                  <CustomButton
+                    type={buttonType}
+                    title="Withdraw"
+                    width="20rem"
+                    textColor={"#fff"}
                     disabled={isSubmitting}
-                    sx={{ background: "blue", color: "white", width: "100%" }}
-                  >
-                    Withdraw
-                  </Button>
+                  />
                 </Grid>
               </Grid>
             </Form>

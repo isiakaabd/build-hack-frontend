@@ -17,6 +17,7 @@ const Header = ({ logout, state }) => {
     //eslint-disable-next-line
   }, []);
   const ac2 = "0x774B716ee5176f7f4eE429F62F688e0AC2e6d504";
+
   return (
     <Grid item container justifyContent="space-between" alignItems="center">
       <h1>
@@ -30,10 +31,10 @@ const Header = ({ logout, state }) => {
           fontSize: "2rem",
         }}
       >
-        {account === ac2 ? "Approval Status" : "Total Employees"}
+        {account !== ac2 ? "Approval Status" : "Total Employees"}
         {"   "} -{" "}
         <span style={{ color: state?.approved === true ? "green" : "red" }}>
-          {account === ac2
+          {account !== ac2
             ? state?.approved === true
               ? "Approved"
               : "Not Approved"
