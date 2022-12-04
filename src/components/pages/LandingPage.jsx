@@ -1,5 +1,4 @@
 import Web3Modal from "web3modal";
-import { providers } from "ethers";
 import { makeStyles } from "@mui/styles";
 import { useEffect, useRef, useState } from "react";
 // import { useNavigate } from "react-router-dom";
@@ -31,7 +30,6 @@ const LandingPage = () => {
   const { displayAlert } = useAlert();
   const classes = useStyles();
   const { contract, account } = useEtherum();
-  console.log(walletConnected);
 
   // useEffect(() => {
   //   // if wallet is not connected, create a new instance of Web3Modal and connect the MetaMask wallet
@@ -46,35 +44,32 @@ const LandingPage = () => {
   //   }
   //   connectWallet();
   // }, []);
-  const getProviderOrSigner = async (needSigner = false) => {
-    web3ModalRef.current = new Web3Modal({
-      network: "rinkeby",
-      providerOptions: {},
-      disableInjectedProvider: false,
-    });
-    const provider = await web3ModalRef.current.connect();
-    const web3Provider = new providers.Web3Provider(provider);
-    const { chainId } = await web3Provider.getNetwork();
-    if (chainId !== 80001) {
-      //change it to 4
-      displayAlert("error", "Change the network to Mumbai");
-      throw new Error("Change network to Mumbai");
-    }
+  // const getProviderOrSigner = async (needSigner = false) => {
+  //   web3ModalRef.current = new Web3Modal({
+  //     network: "rinkeby",
+  //     providerOptions: {},
+  //     disableInjectedProvider: false,
+  //   });
+  //   const provider = await web3ModalRef.current.connect();
+  //   const web3Provider = new providers.Web3Provider(provider);
+  //   const { chainId } = await web3Provider.getNetwork();
+  //   if (chainId !== 80001) {
+  //     //change it to 4
+  //     displayAlert("error", "Change the network to Mumbai");
+  //     throw new Error("Change network to Mumbai");
+  //   }
 
-    if (needSigner) {
-      const signer = web3Provider.getSigner();
-      return signer;
-    }
-    return web3Provider;
-  };
-  console.log(account);
+  //   if (needSigner) {
+  //     const signer = web3Provider.getSigner();
+  //     return signer;
+  //   }
+  //   return web3Provider;
+  // };
+
   const connectWallet =
     //useCallback(
     async () => {
       try {
-        const x = await getProviderOrSigner();
-        const accounts = await x.listAccounts();
-
         setWalletConnected(true);
         localStorage.setItem("auth", true);
         // localStorage.setItem("account", accounts[0]);
@@ -141,6 +136,7 @@ const LandingPage = () => {
     //   localStorage.setItem("auth", false);
     //   // connectWallet();
     // }
+    //eslint-disable-next-line
   }, [contract, auth, walletConnected]);
 
   return (

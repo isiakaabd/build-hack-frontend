@@ -1,13 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@mui/styles";
-import {
-  List,
-  ListItemText,
-  ListItemButton,
-  ListItemIcon,
-  Grid,
-} from "@mui/material";
+import { List, ListItemText, ListItemButton, Grid } from "@mui/material";
 // import logo from "assets/images/logo.svg";
 import { Link } from "react-router-dom";
 import { useEtherum } from "components/hooks/useEtherum";
@@ -137,8 +131,7 @@ const SideMenu = (props) => {
     },
   }));
   const classes = useStyles();
-  const { account, contract } = useEtherum();
-  console.log(contract);
+  const { account } = useEtherum();
   const menu = [
     {
       name: "Home",

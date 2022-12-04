@@ -19,8 +19,6 @@ export const useEtherum = () => {
           setLoading(true);
           const provider = new ethers.providers.Web3Provider(ethereum);
           const signer = await provider.getSigner();
-          let httpProvider = new ethers.providers.JsonRpcProvider();
-
           let accounts = await provider.send("eth_requestAccounts", []);
           const account = accounts[0];
           setAccount(account);
@@ -41,7 +39,7 @@ export const useEtherum = () => {
           return connectedContract;
         } else {
           displayAlert("error", "Ethereum object doesn't exist!");
-          console.log("Ethereum object doesn't exist!");
+          console.error("Ethereum object doesn't exist!");
         }
       } catch (error) {
         setError(error.message);
@@ -49,6 +47,7 @@ export const useEtherum = () => {
       }
     };
     fecthData();
+    //eslint-disable-next-line
   }, []);
   return { loading, error, contract, account };
 };

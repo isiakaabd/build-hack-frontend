@@ -26,20 +26,14 @@ const AddInvoice = ({ props }) => {
   const handleSubmit = async (values) => {
     const { level, name, post, description, amount } = values;
     try {
-      const data = await contract.fillSalaryInvoice(
-        name,
-        post,
-        level,
-        amount,
-        description
-      );
-      console.log(data);
+      await contract.fillSalaryInvoice(name, post, level, amount, description);
+      displayAlert("success", "invoice filled successfully");
     } catch (err) {
       console.log(err);
       displayAlert("error", err.data.message);
     }
   };
-  console.log(contract);
+
   return (
     <Grid item container xs={8} sx={{ margin: "auto", mt: 3 }}>
       <Formik

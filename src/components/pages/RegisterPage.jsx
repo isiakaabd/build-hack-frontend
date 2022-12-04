@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { FormikControl } from "components/validation";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import useAlert from "components/hooks/useAlert";
 import { useEtherum } from "components/hooks/useEtherum";
 import { useAuth } from "components/context";

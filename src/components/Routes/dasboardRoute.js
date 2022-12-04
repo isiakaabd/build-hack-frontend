@@ -1,7 +1,5 @@
 import { useLocation, Navigate } from "react-router-dom";
 import { useAuth } from "components/context";
-import { ethers } from "ethers";
-import { abi } from "abi";
 import { useState, useEffect } from "react";
 import { useEtherum } from "components/hooks/useEtherum";
 const DashboardRoute = ({ children }) => {
@@ -16,7 +14,6 @@ const DashboardRoute = ({ children }) => {
         setState(data?.registered);
       } else {
         localStorage.setItem("auth", false);
-        alert(12);
       }
     } catch (error) {}
   };

@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
-import { Box, Drawer, Toolbar } from "@mui/material";
-import { ethers } from "ethers";
+import { Box, Drawer } from "@mui/material";
 import SideMenu from "components/utilities/SideMenu";
 import MainRoutes from "components/Routes/Routes";
 import { useAuth } from "components/context";
 import Web3Modal from "web3modal";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAlert from "components/hooks/useAlert";
 import Header from "components/dashboard/Header";
-import { abi } from "abi";
 import { useEtherum } from "components/hooks/useEtherum";
 
 const Dash = () => {
@@ -65,7 +63,7 @@ const Dash = () => {
   //     //50 and rate = 50
   //   };
   const [state, setState] = useState(undefined);
-  const { contract, error, loading, account } = useEtherum();
+  const { contract, loading, account } = useEtherum();
   const ac2 = "0x774B716ee5176f7f4eE429F62F688e0AC2e6d504";
   const getEmployeeDetails = async () => {
     try {

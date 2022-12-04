@@ -2,15 +2,19 @@ import { shortAccount } from "components/helpers";
 import { Grid, Button, Typography } from "@mui/material";
 import { useEtherum } from "components/hooks/useEtherum";
 import { useEffect, useState } from "react";
-const Header = ({ logout, auth, state }) => {
+const Header = ({ logout, state }) => {
   const { account, contract } = useEtherum();
   const [total, setTotal] = useState(0);
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await contract?.totalRegisteredEmployee();
-      setTotal(data?.toNumber());
+      if (data) {
+        setTotal(data?.toNumber());
+      }
     };
     fetchData();
+    //eslint-disable-next-line
   }, []);
   const ac2 = "0x774B716ee5176f7f4eE429F62F688e0AC2e6d504";
   return (

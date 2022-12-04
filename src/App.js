@@ -1,12 +1,7 @@
 import "./App.css";
 import { muiTheme } from "components/muiTheme";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import {
-  LandingPage,
-  Dashboard,
-  RegisterPage,
-  LoginPage,
-} from "components/pages";
+import { LandingPage, RegisterPage, LoginPage } from "components/pages";
 import { PrivateRoute } from "components/Routes";
 import { ThemeProvider } from "@mui/material/styles";
 import DashboardRoute from "components/Routes/dasboardRoute";

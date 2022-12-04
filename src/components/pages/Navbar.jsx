@@ -1,6 +1,5 @@
 import { Grid, AppBar, Toolbar, Container } from "@mui/material";
 import AdbIcon from "@mui/icons-material/Adb";
-import useAuth from "components/context/useAuth";
 import {
   List,
   ListItemButton,
@@ -22,7 +21,6 @@ const pages = [
 ];
 
 function Navbar({ handleConnect, contract, account }) {
-  console.log(contract);
   return (
     <AppBar
       position="static"
@@ -88,8 +86,8 @@ function Navbar({ handleConnect, contract, account }) {
               >
                 <ListItemText sx={{ color: "#fff" }}>
                   {account ? shortAccount(account) : "connect Wallet"}
-                  <Copy text={account} name="Wallet ID Copied" />
                 </ListItemText>
+                {account && <Copy text={account} name="Wallet ID Copied" />}
               </ListItemButton>
             </List>
           </Grid>

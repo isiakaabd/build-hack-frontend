@@ -14,8 +14,9 @@ const Deposit = () => {
   const handleSubmit = async (values) => {
     const { amount } = values;
     try {
-      const data = await contract.deposit(amount);
-      console.log(data);
+      await contract.deposit(amount);
+
+      displayAlert("success", "Deposit Successful");
     } catch (err) {
       console.log(err);
       displayAlert("error", err.data.message);
