@@ -9,6 +9,9 @@ import {
 } from "components/pages";
 import { PrivateRoute } from "components/Routes";
 import { ThemeProvider } from "@mui/material/styles";
+import DashboardRoute from "components/Routes/dasboardRoute";
+import Dash from "components/pages/Dash";
+import RegisterRoute from "components/Routes/RegisterRoute";
 
 const App = () => {
   return (
@@ -18,19 +21,19 @@ const App = () => {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route
-              path="/dashboard"
+              path="/dashboard/*"
               element={
-                <PrivateRoute>
-                  <Dashboard />
-                </PrivateRoute>
+                <DashboardRoute>
+                  <Dash />
+                </DashboardRoute>
               }
             />
             <Route
               path="/register"
               element={
-                <PrivateRoute>
+                <RegisterRoute>
                   <RegisterPage />
-                </PrivateRoute>
+                </RegisterRoute>
               }
             />
             <Route

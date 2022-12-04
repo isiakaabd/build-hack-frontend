@@ -6,17 +6,17 @@ import { FormikControl } from "components/validation";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import * as Yup from "yup";
 import useAlert from "components/hooks/useAlert";
+import { useEtherum } from "components/hooks/useEtherum";
 const LoginPage = () => {
   const initialValues = {
     email: "",
   };
   const { displayAlert } = useAlert();
+  const { account } = useEtherum();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location?.state?.from.pathname || "/dashboard";
 
-  const registers = JSON.parse(localStorage.getItem("registers"));
-  const account = localStorage.getItem("account");
   const validationSchema = Yup.object({
     email: Yup.string("Enter Employee's Email address")
       .email("Enter a valid email")

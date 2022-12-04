@@ -8,7 +8,8 @@ import {
   ListItemText,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-
+import { shortAccount } from "components/helpers";
+import Copy from "components/utilities/Copy";
 const pages = [
   {
     title: "Register",
@@ -20,13 +21,8 @@ const pages = [
   },
 ];
 
-function Navbar({ handleConnect }) {
-  const { auth } = useAuth();
-
-  //   const handleCloseUserMenu = () => {
-  //     setAnchorElUser(null);
-  //   };
-
+function Navbar({ handleConnect, contract, account }) {
+  console.log(contract);
   return (
     <AppBar
       position="static"
@@ -67,7 +63,7 @@ function Navbar({ handleConnect }) {
               >
                 <ListItemText sx={{ color: "#fff" }}>About</ListItemText>
               </ListItemButton>
-              {auth &&
+              {contract &&
                 pages.map((page) => (
                   <ListItemButton
                     disableRipple
@@ -75,6 +71,11 @@ function Navbar({ handleConnect }) {
                     key={page.route}
                     component={Link}
                     to={page.route}
+                    onClick={() => {
+                      if (page.route === "/login") {
+                        localStorage.setItem("auth", true);
+                      }
+                    }}
                     //   selected={selectedMenu === page.route}
                   >
                     <ListItemText>{page.title}</ListItemText>
@@ -82,11 +83,12 @@ function Navbar({ handleConnect }) {
                 ))}
               <ListItemButton
                 disableRipple
-                sx={{ flexGrow: 0 }}
+                sx={{ flexGrow: 0, padding: "2em", borderRadius: "2rem" }}
                 onClick={() => handleConnect()}
               >
                 <ListItemText sx={{ color: "#fff" }}>
-                  Connect Your Wallet
+                  {account ? shortAccount(account) : "connect Wallet"}
+                  <Copy text={account} name="Wallet ID Copied" />
                 </ListItemText>
               </ListItemButton>
             </List>

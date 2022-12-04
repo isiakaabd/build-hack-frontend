@@ -5,25 +5,22 @@ import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { FormikControl } from "components/validation";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { useEffect } from "react";
 import useAlert from "components/hooks/useAlert";
-
+import { useEtherum } from "components/hooks/useEtherum";
+import { useAuth } from "components/context";
 const RegisterPage = () => {
-  const account = localStorage.getItem("account");
-  const register = JSON.parse(localStorage.getItem("registers"));
-  const [registers, setRegisters] = useState(register || []);
+  const { contract, account } = useEtherum();
   const location = useLocation();
   const navigate = useNavigate();
-  const from = location?.state?.from.pathname || "/login";
-
+  const from = location?.state?.from.pathname || "/dashboard";
+  const { setAuth } = useAuth();
   const { displayAlert } = useAlert();
+
   const initialValues = {
     name: "",
-    email: "",
     post: "",
-    level: "",
-    address: "",
+    level: 0,
   };
   const validationSchema = Yup.object({
     name: Yup.string("Enter Employee's name")
@@ -35,39 +32,32 @@ const RegisterPage = () => {
     level: Yup.string("Enter Employee's level")
       .trim()
       .required("Level  is required"),
-    address: Yup.string("Enter Employee's Address")
-      .trim()
-      .required("Address  is required"),
-    email: Yup.string("Enter Employee's Email address")
-      .email("Enter a valid email")
-      .trim()
-      .required("Email is required"),
+    // address: Yup.string("Enter Employee's Address")
+    //   .trim()
+    //   .required("Address  is required"),
+    // email: Yup.string("Enter Employee's Email address")
+    //   .email("Enter a valid email")
+    //   .trim()
+    //   .required("Email is required"),
   });
-  const handleSubmit = (values, onSubmitProps) => {
+
+  const handleSubmit = async (values, onSubmitProps) => {
     try {
-      const { name, post, email, level, address } = values;
-      const newAcc = {
-        name,
-        post,
-        email,
-        level,
-        address,
-        account,
-      };
-      setRegisters([...registers, newAcc]);
-      onSubmitProps.resetForm();
+      const { name, post, level } = values;
+
+      await contract.registerInfo(name, account, post, level);
+
       displayAlert("success", "Registration successful");
-      setTimeout(() => {
-        navigate(from, { replace: true });
-      }, 5000);
+      localStorage.setItem("auth", true);
+      setAuth(true);
+      navigate(from, { replace: true });
     } catch (err) {
-      displayAlert("error", err.message);
+      console.log(err);
+      displayAlert("error", err.data.message);
     }
+    onSubmitProps.resetForm();
   };
 
-  useEffect(() => {
-    localStorage.setItem("registers", JSON.stringify(registers));
-  }, [registers]);
   return (
     <Grid item container flexWrap="nowrap" sx={{ minHeight: "100vh" }}>
       <Grid item xs={6}>
@@ -109,15 +99,7 @@ const RegisterPage = () => {
                         placeholder="Enter Employee Name"
                       />
                     </Grid>
-                    <Grid item container>
-                      <FormikControl
-                        control="input"
-                        label="Employee Email"
-                        id="email"
-                        name="email"
-                        placeholder="Enter Employee Email"
-                      />
-                    </Grid>
+
                     <Grid item container flexWrap="nowrap" gap={2}>
                       <Grid item xs={6}>
                         <FormikControl
@@ -130,23 +112,29 @@ const RegisterPage = () => {
                       </Grid>
                       <Grid item xs={6}>
                         <FormikControl
-                          control="input"
+                          control="select"
                           label="Employee Level"
                           id="level"
                           name="level"
+                          options={[
+                            {
+                              key: "Junior",
+                              value: 0,
+                            },
+                            {
+                              key: "Intermediate",
+                              value: 1,
+                            },
+                            {
+                              key: "Senior",
+                              value: 2,
+                            },
+                          ]}
                           placeholder="Enter Employee Level"
                         />
                       </Grid>
                     </Grid>
-                    <Grid item container>
-                      <FormikControl
-                        control="textarea"
-                        label="Employee Address"
-                        id="address"
-                        name="address"
-                        placeholder="Enter Employee Address"
-                      />
-                    </Grid>
+
                     <Grid item container>
                       <Button
                         disabled={isSubmitting}
